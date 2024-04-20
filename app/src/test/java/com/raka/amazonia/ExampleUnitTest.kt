@@ -1,4 +1,4 @@
-package com.raka.spacex
+package com.raka.amazonia
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

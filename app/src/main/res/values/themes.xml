@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.SpaceX" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Amazonia" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="android:statusBarColor">@color/purple_700</item>
+    </style>
+
+    <style name="Theme.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.Amazonia</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item>
     </style>
 </resources>

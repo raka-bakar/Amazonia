@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.raka.amazonia"
         minSdk 24
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
         compileSdkPreview = "UpsideDownCake"
@@ -33,14 +33,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    viewBinding {
+        enabled = true
+    }
+
     kotlinOptions {
         jvmTarget = '17'
-    }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion compose_version
     }
     packagingOptions {
         resources {
@@ -56,14 +55,26 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation "com.google.android.material:material:1.8.0"
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
+
+    // RxJava
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
 
     // logging
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
-    // dagger hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-android-compiler:2.44"
+    // coil
+    implementation 'io.coil-kt:coil:2.5.0'
 
+    // splash screen
+    implementation "androidx.core:core-splashscreen:1.2.0-alpha01"
+
+    // dagger hilt
+    implementation "com.google.dagger:hilt-android:2.49"
+    kapt "com.google.dagger:hilt-android-compiler:2.48.1"
+
+    // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0"
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
@@ -74,7 +85,4 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="warning_logo_size">100dp</dimen>
+    <dimen name="margin_small">6dp</dimen>
+
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+
+    <dimen name="text_margin_start">26dp</dimen>
+    <dimen name="poster_width">69dp</dimen>
+    <dimen name="poster_height">89dp</dimen>
+    <dimen name="rv_product_margin">21dp</dimen>
+    <dimen name="iv_margin_bottom">25dp</dimen>
+    <dimen name="btn_favorite_margin">41dp</dimen>
+
+    <dimen name="rv_margin_start_end">30dp</dimen>
+    <dimen name="rv_margin_top">27dp</dimen>
+
+
+</resources>

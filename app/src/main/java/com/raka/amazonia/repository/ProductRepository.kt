@@ -3,8 +3,10 @@ package com.raka.amazonia.repository
 import com.raka.amazonia.model.ProductCompact
 import com.raka.amazonia.utils.toProductCompact
 import com.raka.data.DataProvider
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -28,12 +30,6 @@ interface ProductRepository {
     fun updateFavoriteStatus(id: Int, status: Boolean): Completable
 
     /**
-     * get a list of bookmarked product
-     *  @return a Single of list of DBProduct
-     */
-    fun getBookmarkedProducts(): Single<List<ProductCompact>>
-
-    /**
      * get list of product
      * @return Single of List<ProductCompact
      */
@@ -43,7 +39,13 @@ interface ProductRepository {
      * load initial data from remote server and save it into local file and database
      * @return Completable
      */
-    fun loadInitialData(): Completable
+    fun getInitialData(): Completable
+
+    /**
+     * get a list of products by category
+     * @return Single of List<ProductCompact>
+     */
+    fun getProductsByCategory(id: Int): Single<List<ProductCompact>>
 }
 
 class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataProvider) :
@@ -52,22 +54,33 @@ class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataPr
         return dataProvider.getProduct(
             id
         ).map { dbProduct -> dbProduct.toProductCompact(dbProduct) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun updateFavoriteStatus(id: Int, status: Boolean): Completable {
         return dataProvider.updateFavoriteStatus(id = id, status = status)
-    }
-
-    override fun getBookmarkedProducts(): Single<List<ProductCompact>> {
-        TODO("Not yet implemented")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getProducts(): Single<List<ProductCompact>> {
         return dataProvider.getProducts()
             .map { list -> list.map { dbProduct -> dbProduct.toProductCompact(dbProduct) } }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun loadInitialData(): Completable {
+    override fun getInitialData(): Completable {
         return dataProvider.loadInitialData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getProductsByCategory(id: Int): Single<List<ProductCompact>> {
+        return dataProvider.loadProductsByCategory(id)
+            .map { list -> list.map { dbProduct -> dbProduct.toProductCompact(dbProduct) } }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 }

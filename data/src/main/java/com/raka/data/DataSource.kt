@@ -25,12 +25,6 @@ interface DataSource {
     fun updateFavoriteStatus(id: Int, status: Boolean): Completable
 
     /**
-     * get a list of bookmarked products
-     *  @return a Single of list of DBProduct
-     */
-    fun getBookmarkedProducts(): Single<List<DBProduct>>
-
-    /**
      * load initial data from remote server and save it into local file and database
      * @return Completable
      */
@@ -41,6 +35,12 @@ interface DataSource {
      * @return Single of ProductResponse
      */
     fun loadProductsLocalStorage(): Single<List<DBProduct>>
+
+    /**
+     * get a list of products by category
+     * @return Single of List<DBProduct>
+     */
+    fun loadProductsByCategory(category: Int): Single<List<DBProduct>>
 }
 
 class DataSourceImpl @Inject constructor(
@@ -51,16 +51,18 @@ class DataSourceImpl @Inject constructor(
         return productDao.loadProducts()
     }
 
+    override fun loadProductsByCategory(id: Int): Single<List<DBProduct>> {
+        return productDao.loadProduct(id).flatMap {
+            productDao.loadProductsByCategory(it.category)
+        }
+    }
+
     override fun loadProduct(id: Int): Single<DBProduct> {
         return productDao.loadProduct(id)
     }
 
     override fun updateFavoriteStatus(id: Int, status: Boolean): Completable {
         return productDao.updateProduct(id = id, status = status)
-    }
-
-    override fun getBookmarkedProducts(): Single<List<DBProduct>> {
-        TODO("Not yet implemented")
     }
 
     override fun loadInitialData(): Completable {

@@ -2,10 +2,14 @@
 <resources>
     <dimen name="warning_logo_size">100dp</dimen>
     <dimen name="margin_small">6dp</dimen>
+    <dimen name="margin_extra_small">4dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_extra_large">20dp</dimen>
 
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_extra_large">22sp</dimen>
 
     <dimen name="text_margin_start">26dp</dimen>
     <dimen name="poster_width">69dp</dimen>

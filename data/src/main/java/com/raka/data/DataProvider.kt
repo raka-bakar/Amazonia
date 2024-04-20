@@ -13,7 +13,8 @@ class DataProvider @Inject constructor(private val dataSource: DataSource) {
     fun updateFavoriteStatus(id: Int, status: Boolean) =
         dataSource.updateFavoriteStatus(id = id, status = status)
 
-    fun getBookmarkedProducts() = dataSource.getBookmarkedProducts()
-
     fun loadInitialData() = dataSource.loadInitialData()
+
+    fun loadProductsByCategory(id: Int) =
+        dataSource.loadProductsByCategory(category = id)
 }

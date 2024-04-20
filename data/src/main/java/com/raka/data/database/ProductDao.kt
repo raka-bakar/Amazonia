@@ -16,7 +16,7 @@ interface ProductDao {
      *  @param list  list of DBProduct
      *  @return Completable type
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertProducts(list: List<DBProduct>): Completable
 
     /**
@@ -26,6 +26,22 @@ interface ProductDao {
     @Transaction
     @Query("SELECT * FROM product")
     fun loadProducts(): Single<List<DBProduct>>
+
+    /**
+     * load all products from table product filtered by category
+     *  @return Single type of List<DBProduct>
+     */
+    @Transaction
+    @Query("SELECT * FROM product WHERE category = :category")
+    fun loadProductsByCategory(category: String): Single<List<DBProduct>>
+
+    /**
+     * load all favorite products from table produc
+     *  @return Single type of List<DBProduct>
+     */
+    @Transaction
+    @Query("SELECT * FROM product WHERE isFavorite = :isFavorite")
+    fun loadFavoriteProducts(isFavorite: Boolean): Single<List<DBProduct>>
 
     /**
      * load a product from table product

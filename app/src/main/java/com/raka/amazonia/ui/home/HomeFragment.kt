@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,11 +28,10 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.btnReload.setOnClickListener { viewModel.getAllProducts() }
+        binding.btnReload.setOnClickListener { viewModel.getInitialData() }
         setupObserver()
         setupAppBar()
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
+        disableBackPress()
 
         return binding.root
     }
@@ -56,8 +56,6 @@ class HomeFragment : Fragment() {
                     showEmptyView()
                     binding.loadingSpinner.visibility = View.GONE
                 }
-
-                else -> {}
             }
         }
     }
@@ -77,19 +75,33 @@ class HomeFragment : Fragment() {
 
     private fun setupAppBar() {
         binding.toolbarHome.title = resources.getString(R.string.app_name)
+        binding.toolbarHome.logo = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.ic_logo,
+            null
+        )
+    }
+
+    private fun disableBackPress() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
     }
 
     private fun showEmptyView() {
-        binding.tvEmptyData.visibility = View.VISIBLE
-        binding.btnReload.visibility = View.VISIBLE
-        binding.ivEmptyData.visibility = View.VISIBLE
+        binding.apply {
+            tvEmptyData.visibility = View.VISIBLE
+            btnReload.visibility = View.VISIBLE
+            ivEmptyData.visibility = View.VISIBLE
+        }
     }
 
     private fun hideEmptyView() {
-        binding.tvEmptyData.visibility = View.GONE
-        binding.btnReload.visibility = View.GONE
-        binding.ivEmptyData.visibility = View.GONE
+        binding.apply {
+            tvEmptyData.visibility = View.GONE
+            btnReload.visibility = View.GONE
+            ivEmptyData.visibility = View.GONE
+        }
     }
+
     companion object {
         fun newInstance() = HomeFragment()
     }

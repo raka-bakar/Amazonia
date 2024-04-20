@@ -4,6 +4,8 @@ import com.raka.amazonia.usecase.GetAllProductsUseCase
 import com.raka.amazonia.usecase.GetAllProductsUsecaseImpl
 import com.raka.amazonia.usecase.GetInitialDataUseCase
 import com.raka.amazonia.usecase.GetInitialDataUseCaseImpl
+import com.raka.amazonia.usecase.GetProductDetailUseCase
+import com.raka.amazonia.usecase.GetProductDetailUseCaseImpl
 import com.raka.amazonia.usecase.GetProductUseCase
 import com.raka.amazonia.usecase.GetProductUseCaseImpl
 import com.raka.amazonia.usecase.UpdateFavoriteStatusUseCase
@@ -33,4 +35,9 @@ interface UseCaseModule {
     fun bindUpdateFavoriteStatusUseCase(
         updateFavoriteStatusUseCaseImpl: UpdateFavoriteStatusUseCaseImpl
     ): UpdateFavoriteStatusUseCase
+
+    @Binds
+    fun bindGetProductsByCategoryUseCase(
+        getProductsByCategoryImpl: GetProductDetailUseCaseImpl
+    ): GetProductDetailUseCase
 }

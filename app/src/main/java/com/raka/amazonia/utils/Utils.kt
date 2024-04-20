@@ -10,7 +10,8 @@ fun DBProduct.toProductCompact(dbProduct: DBProduct): ProductCompact {
         price = dbProduct.price,
         description = dbProduct.description,
         title = dbProduct.title,
-        isFavorite = dbProduct.isFavorite
+        isFavorite = dbProduct.isFavorite,
+        category = dbProduct.category,
+        rating = dbProduct.rating
     )
 }
-

@@ -41,27 +41,27 @@ class HomeAdapter(
             item: ProductCompact,
             position: Int
         ) {
-            binding.ivProduct.load(item.thumbnail) {
-                transformations(RoundedCornersTransformation(CORNER_RADIUS))
+            binding.apply {
+                ivProduct.load(item.thumbnail) {
+                    transformations(RoundedCornersTransformation(CORNER_RADIUS))
+                }
+                tvTitle.text = item.title
+                tvPrice.text =
+                    binding.root.resources.getString(R.string.price_currency, item.price.toString())
+                tvDescription.text = item.description
+                itemProduct.setOnClickListener {
+                    onItemClick(item.id)
+                }
+                ivFavorite.setOnClickListener { onClickItem(item, position) }
             }
-            binding.tvTitle.text = item.title
-            binding.tvPrice.text =
-                binding.root.resources.getString(R.string.price_currency, item.price.toString())
-            binding.tvDescription.text = item.description
-
-            binding.itemProduct.setOnClickListener {
-                onItemClick(item.id)
-            }
-            binding.btnFavorite.setOnClickListener { onClickItem(item, position) }
-
             setFavoriteImage(item.isFavorite)
         }
 
         private fun setFavoriteImage(status: Boolean) {
             if (status) {
-                binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
             } else {
-                binding.btnFavorite.setImageResource(R.drawable.ic_favorite_unfilled)
+                binding.ivFavorite.setImageResource(R.drawable.ic_favorite_unfilled)
             }
         }
     }

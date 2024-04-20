@@ -1,82 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/appbar_home"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    >
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_home"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
 
-</com.google.android.material.appbar.AppBarLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_home"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home"
-            app:layout_constraintTop_toBottomOf="@+id/appbar_home"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="@dimen/rv_margin_start_end"
-            android:layout_marginTop="@dimen/rv_margin_top"
-            android:layout_marginEnd="@dimen/rv_margin_start_end"
             android:layout_width="0dp"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/rv_margin_start_end"
+            android:layout_marginEnd="@dimen/rv_margin_start_end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar_home" />
+
         <ProgressBar
             android:id="@+id/loading_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/iv_empty_data"
             android:layout_width="@dimen/warning_logo_size"
             android:layout_height="@dimen/warning_logo_size"
-            android:src="@drawable/ic_warning"
             android:contentDescription="@string/content_description"
+            android:src="@drawable/ic_warning"
             app:layout_constraintBottom_toTopOf="@+id/tv_empty_data"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/tv_empty_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/empty_label"
             android:textSize="@dimen/text_size_large"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_reload"
-            android:text="@string/try_again_label"
-            app:layout_constraintTop_toBottomOf="@+id/tv_empty_data"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_small"
-            android:textAllCaps="false"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@string/try_again_label"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_empty_data" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

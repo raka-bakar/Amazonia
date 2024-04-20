@@ -15,6 +15,6 @@ interface GetInitialDataUseCase {
 class GetInitialDataUseCaseImpl @Inject constructor(private val productRepository: ProductRepository) :
     GetInitialDataUseCase {
     override fun getInitialData(): Completable {
-        return productRepository.loadInitialData()
+        return productRepository.getInitialData()
     }
 }

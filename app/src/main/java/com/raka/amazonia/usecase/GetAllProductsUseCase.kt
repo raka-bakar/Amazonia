@@ -8,6 +8,7 @@ import javax.inject.Inject
 interface GetAllProductsUseCase {
     /**
      * get a list of product
+     * @param isFavorite status of product
      * @return Single of List<ProductCompact>
      */
     fun getProducts(): Single<List<ProductCompact>>

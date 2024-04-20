@@ -2,8 +2,8 @@ package com.raka.amazonia.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import com.raka.amazonia.R
 import com.raka.amazonia.databinding.ActivityRootBinding
@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RootActivity : FragmentActivity() {
+class RootActivity : AppCompatActivity() {
     private val viewModel: RootViewModel by viewModels()
     private lateinit var binding: ActivityRootBinding
     override fun onCreate(savedInstanceState: Bundle?) {

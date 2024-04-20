@@ -5,33 +5,44 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.raka.amazonia.model.ProductCompact
 import com.raka.amazonia.usecase.GetAllProductsUseCase
+import com.raka.amazonia.usecase.GetInitialDataUseCase
 import com.raka.amazonia.usecase.UpdateFavoriteStatusUseCase
 import com.raka.amazonia.utils.CallResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
-    private val updateFavoriteStatusUseCase: UpdateFavoriteStatusUseCase
+    private val updateFavoriteStatusUseCase: UpdateFavoriteStatusUseCase,
+    private val getInitialDataUseCase: GetInitialDataUseCase
 ) :
     ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
     private val _productsLiveData:
-        MutableLiveData<CallResult<List<ProductCompact>>> = MutableLiveData()
+            MutableLiveData<CallResult<List<ProductCompact>>> = MutableLiveData()
     val productsLiveData: LiveData<CallResult<List<ProductCompact>>> = _productsLiveData
 
+    fun getInitialData() {
+        val disposable = getInitialDataUseCase.getInitialData()
+            .doOnSubscribe { _productsLiveData.postValue(CallResult.loading()) }
+            .doOnComplete { getAllProducts() }
+            .doOnError {
+                _productsLiveData.postValue(CallResult.error(it.message))
+            }
+            .subscribe({}, {
+                Timber.e(it.message)
+            })
+        compositeDisposable.add(disposable)
+    }
+
     fun getAllProducts() {
-        _productsLiveData.value = CallResult.loading()
         val disposable = getAllProductsUseCase.getProducts()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { _productsLiveData.postValue(CallResult.loading()) }
             .subscribe({ listProducts ->
                 if (listProducts.isEmpty()) {
                     _productsLiveData.postValue(CallResult.error("Data is empty"))
@@ -48,8 +59,6 @@ class HomeViewModel @Inject constructor(
     fun onFavoriteClicked(product: ProductCompact) {
         val disposable = updateFavoriteStatusUseCase
             .updateFavoriteStatus(id = product.id, status = product.isFavorite)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 getAllProducts()
             }

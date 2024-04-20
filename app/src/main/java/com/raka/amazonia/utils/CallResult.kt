@@ -17,7 +17,6 @@ data class CallResult<out T> private constructor(
     val message: String? = null
 ) {
     enum class Status {
-        IDLE,
         SUCCESS,
         ERROR,
         LOADING
@@ -27,9 +26,6 @@ data class CallResult<out T> private constructor(
      * set of Helper methods to create call results of different states,
      */
     companion object {
-        fun <T> idle(data: T? = null, message: String? = null, code: Int? = null): CallResult<T> {
-            return CallResult(Status.IDLE, data, emptyMap(), code, message)
-        }
 
         fun <T> success(
             data: T?,
@@ -53,22 +49,4 @@ data class CallResult<out T> private constructor(
             return CallResult(Status.LOADING, data)
         }
     }
-
-    /**
-     * Helper method to convert data in a call result
-     */
-    fun <M> copyConvert(converter: (T?) -> M?) =
-        CallResult<M>(status, converter(data), extra, code, message)
-
-    fun isIdle(): Boolean =
-        status == Status.IDLE
-
-    fun isSuccess(): Boolean =
-        status == Status.SUCCESS
-
-    fun isLoading(): Boolean =
-        status == Status.LOADING
-
-    fun isFail(): Boolean =
-        status == Status.ERROR
 }

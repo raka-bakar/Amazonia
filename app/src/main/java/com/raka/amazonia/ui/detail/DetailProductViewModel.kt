@@ -25,7 +25,7 @@ class DetailProductViewModel @Inject constructor(
     val productLiveData: LiveData<CallResult<ProductCompact>> = _productLiveData
 
     fun getRatingProduct(id: Int) {
-        val disposable = getProductDetail.loadProductDetail(id)
+        val disposable = getProductDetail.getProductDetail(id)
             .doOnSubscribe { _productLiveData.postValue(CallResult.loading()) }
             .subscribe({ productCompact ->
                 _productLiveData.postValue(CallResult.success(productCompact))

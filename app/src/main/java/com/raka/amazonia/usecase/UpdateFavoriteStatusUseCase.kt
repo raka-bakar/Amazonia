@@ -18,6 +18,7 @@ class UpdateFavoriteStatusUseCaseImpl
 @Inject constructor(private val productRepository: ProductRepository) :
     UpdateFavoriteStatusUseCase {
     override fun updateFavoriteStatus(id: Int, status: Boolean): Completable {
+        // change the value of status to the opposite
         return productRepository.updateFavoriteStatus(id = id, status = !status)
     }
 }

@@ -51,7 +51,7 @@ interface ProductRepository {
 class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataProvider) :
     ProductRepository {
     override fun getProduct(id: Int): Single<ProductCompact> {
-        return dataProvider.getProduct(
+        return dataProvider.loadProduct(
             id
         ).map { dbProduct -> dbProduct.toProductCompact(dbProduct) }
             .subscribeOn(Schedulers.io())
@@ -65,7 +65,7 @@ class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataPr
     }
 
     override fun getProducts(): Single<List<ProductCompact>> {
-        return dataProvider.getProducts()
+        return dataProvider.loadProducts()
             .map { list -> list.map { dbProduct -> dbProduct.toProductCompact(dbProduct) } }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -12,35 +12,37 @@ interface DataSource {
 
     /**
      * get a detail information of a product,
-     * @param id the ID of a product
+     * @param id a Product
      * @return Single of DBProduct
      */
     fun loadProduct(id: Int): Single<DBProduct>
 
     /**
      * update favorite status of a product
-     * @param product type of DBProduct
+     * @param id  of Product
+     * @param status  favorite status of a product
      * @return Completable type
      */
     fun updateFavoriteStatus(id: Int, status: Boolean): Completable
 
     /**
-     * load initial data from remote server and save it into local file and database
+     * load initial data from remote server and save it into the database
      * @return Completable
      */
     fun loadInitialData(): Completable
 
     /**
-     * get list of DBProduct
+     * get list of DBProduct from database
      * @return Single of ProductResponse
      */
     fun loadProductsLocalStorage(): Single<List<DBProduct>>
 
     /**
      * get a list of products by category
+     * @param id  of Product
      * @return Single of List<DBProduct>
      */
-    fun loadProductsByCategory(category: Int): Single<List<DBProduct>>
+    fun loadProductsByCategory(id: Int): Single<List<DBProduct>>
 }
 
 class DataSourceImpl @Inject constructor(
@@ -66,8 +68,8 @@ class DataSourceImpl @Inject constructor(
     }
 
     override fun loadInitialData(): Completable {
-        // hit api and save to database and to local file
-        return apiService.getAllProducts()
+        // load data from remote server and save to the local database
+        return apiService.loadProducts()
             .flatMapCompletable {
                 val dbList = it.productResponses.map { product -> product.toDBProduct(product) }
                 productDao.insertProducts(dbList)

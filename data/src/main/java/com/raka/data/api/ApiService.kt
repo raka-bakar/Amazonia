@@ -6,9 +6,10 @@ import retrofit2.http.GET
 
 interface ApiService {
     /**
-     * get list of All products
-     * @return Response of list of ProductResponse
+     * load list of All products
+     * @return Single type pf ApiResponse
+     *
      */
     @GET("products")
-    fun getAllProducts(): Single<ApiResponse>
+    fun loadProducts(): Single<ApiResponse>
 }

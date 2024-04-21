@@ -1,6 +1,7 @@
 package com.raka.amazonia.utils
 
 import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.utils.Constants.PRODUCT_NOT_FOUND_ID
 import javax.inject.Inject
 
 interface RatingManager {
@@ -16,12 +17,31 @@ interface RatingManager {
 class RatingManagerImpl @Inject constructor() : RatingManager {
     override fun getProductRank(id: Int, listProductCompact: List<ProductCompact>):
         ProductCompact {
+        // if the list empty return product not found
+        if (listProductCompact.isEmpty()) {
+            return ProductCompact(id = PRODUCT_NOT_FOUND_ID)
+        }
+
         val product = listProductCompact.find { it.id == id }
         val totalProduct = listProductCompact.size
-        // sort the product list by its rating descending
-        val index = listProductCompact.sortedByDescending { it.rating }.indexOf(product) + 1
+
+        val index = getIndexOfSortedList(product, listProductCompact)
         product?.rank = index
         product?.totalProduct = totalProduct
-        return product!!
+        return product ?: ProductCompact(id = PRODUCT_NOT_FOUND_ID)
+    }
+
+    /**
+     * Sort the list of products by its rating descending
+     * and get the index of the selected product
+     * @param product selected product
+     * @param listProductCompact list of product compact which has the same category
+     * @return index of the selected product in the sorted list
+     */
+    private fun getIndexOfSortedList(
+        product: ProductCompact?,
+        listProductCompact: List<ProductCompact>
+    ): Int {
+        return (listProductCompact.sortedByDescending { it.rating }.indexOf(product)) + 1
     }
 }

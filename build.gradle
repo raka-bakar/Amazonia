@@ -1,4 +1,8 @@
 buildscript {
+    ext {
+        application_version = "1.0"
+        application_name = "\"Amazonia\""
+    }
     dependencies {
         classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.22.0'
         classpath 'org.jetbrains.kotlin:kotlin-serialization:1.9.0'

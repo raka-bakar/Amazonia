@@ -9,7 +9,7 @@ package com.raka.amazonia.utils
  * @param code call response code
  * @param message call message
  */
-data class CallResult<out T> private constructor(
+data class ScreenState<out T> private constructor(
     val status: Status,
     val data: T?,
     val extra: Map<String, String> = emptyMap(),
@@ -32,8 +32,8 @@ data class CallResult<out T> private constructor(
             headers: Map<String, String> = emptyMap(),
             message: String? = null,
             code: Int? = null
-        ): CallResult<T> {
-            return CallResult(Status.SUCCESS, data, headers, code, message)
+        ): ScreenState<T> {
+            return ScreenState(Status.SUCCESS, data, headers, code, message)
         }
 
         fun <T> error(
@@ -41,12 +41,12 @@ data class CallResult<out T> private constructor(
             code: Int? = null,
             data: T? = null,
             headers: Map<String, String> = emptyMap()
-        ): CallResult<T> {
-            return CallResult(Status.ERROR, data, headers, code, message)
+        ): ScreenState<T> {
+            return ScreenState(Status.ERROR, data, headers, code, message)
         }
 
-        fun <T> loading(data: T? = null): CallResult<T> {
-            return CallResult(Status.LOADING, data)
+        fun <T> loading(data: T? = null): ScreenState<T> {
+            return ScreenState(Status.LOADING, data)
         }
     }
 }

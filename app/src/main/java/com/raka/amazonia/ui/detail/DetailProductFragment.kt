@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.raka.amazonia.R
 import com.raka.amazonia.databinding.FragmentDetailProductBinding
 import com.raka.amazonia.model.ProductCompact
-import com.raka.amazonia.utils.CallResult
+import com.raka.amazonia.utils.ScreenState
 
 class DetailProductFragment : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
@@ -35,17 +35,17 @@ class DetailProductFragment : Fragment() {
     private fun setupObserver() {
         viewModel.productLiveData.observe(viewLifecycleOwner) { callResult ->
             when (callResult.status) {
-                CallResult.Status.SUCCESS -> {
+                ScreenState.Status.SUCCESS -> {
                     binding.loadingSpinnerDetail.visibility = View.GONE
                     callResult.data?.let { productCompact -> setView(productCompact) }
                 }
 
-                CallResult.Status.LOADING -> {
+                ScreenState.Status.LOADING -> {
                     hideEmptyView()
                     binding.loadingSpinnerDetail.visibility = View.VISIBLE
                 }
 
-                CallResult.Status.ERROR -> {
+                ScreenState.Status.ERROR -> {
                     showEmptyView()
                     binding.loadingSpinnerDetail.visibility = View.GONE
                 }

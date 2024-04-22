@@ -7,7 +7,7 @@ import com.raka.amazonia.model.ProductCompact
 import com.raka.amazonia.usecase.GetAllProductsUseCase
 import com.raka.amazonia.usecase.GetInitialDataUseCase
 import com.raka.amazonia.usecase.UpdateFavoriteStatusUseCase
-import com.raka.amazonia.utils.CallResult
+import com.raka.amazonia.utils.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
@@ -23,15 +23,15 @@ class HomeViewModel @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     private val _productsLiveData:
-        MutableLiveData<CallResult<List<ProductCompact>>> = MutableLiveData()
-    val productsLiveData: LiveData<CallResult<List<ProductCompact>>> = _productsLiveData
+        MutableLiveData<ScreenState<List<ProductCompact>>> = MutableLiveData()
+    val productsLiveData: LiveData<ScreenState<List<ProductCompact>>> = _productsLiveData
 
     fun getInitialData() {
         val disposable = getInitialDataUseCase.getInitialData()
-            .doOnSubscribe { _productsLiveData.postValue(CallResult.loading()) }
+            .doOnSubscribe { _productsLiveData.postValue(ScreenState.loading()) }
             .doOnComplete { getAllProducts() }
             .doOnError {
-                _productsLiveData.postValue(CallResult.error(it.message))
+                _productsLiveData.postValue(ScreenState.error(it.message))
             }
             .subscribe({}, {
                 Timber.e(it.message)
@@ -41,15 +41,15 @@ class HomeViewModel @Inject constructor(
 
     fun getAllProducts() {
         val disposable = getAllProductsUseCase.getProducts()
-            .doOnSubscribe { _productsLiveData.postValue(CallResult.loading()) }
+            .doOnSubscribe { _productsLiveData.postValue(ScreenState.loading()) }
             .subscribe({ listProducts ->
                 if (listProducts.isEmpty()) {
-                    _productsLiveData.postValue(CallResult.error("Data is empty"))
+                    _productsLiveData.postValue(ScreenState.error("Data is empty"))
                 } else {
-                    _productsLiveData.postValue(CallResult.success(listProducts))
+                    _productsLiveData.postValue(ScreenState.success(listProducts))
                 }
             }, { onError ->
-                _productsLiveData.postValue(CallResult.error(onError.message))
+                _productsLiveData.postValue(ScreenState.error(onError.message))
                 Timber.e(onError)
             })
         compositeDisposable.add(disposable)

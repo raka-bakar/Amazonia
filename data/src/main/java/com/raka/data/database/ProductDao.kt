@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 @Dao
-interface ProductDao {
+internal interface ProductDao {
 
     /**
      * insert list of DBProduct

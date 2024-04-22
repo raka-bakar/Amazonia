@@ -45,7 +45,7 @@ interface DataSource {
     fun loadProductsByCategory(id: Int): Single<List<DBProduct>>
 }
 
-class DataSourceImpl @Inject constructor(
+internal class DataSourceImpl @Inject constructor(
     private val apiService: ApiService,
     private val productDao: ProductDao
 ) : DataSource {

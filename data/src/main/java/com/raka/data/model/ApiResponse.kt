@@ -2,7 +2,7 @@ package com.raka.data.model
 
 import com.squareup.moshi.Json
 
-data class ApiResponse(
+internal data class ApiResponse(
 
     @Json(name = "total")
     val total: Int,

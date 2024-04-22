@@ -3,7 +3,7 @@ package com.raka.data.utils
 import com.raka.data.database.DBProduct
 import com.raka.data.model.ProductResponse
 
-fun ProductResponse.toDBProduct(productResponse: ProductResponse): DBProduct {
+internal fun ProductResponse.toDBProduct(productResponse: ProductResponse): DBProduct {
     return (
         DBProduct(
             id = productResponse.id,

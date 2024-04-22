@@ -9,7 +9,7 @@ import java.lang.reflect.Type
  *  A converter class to transfrom List of String to Json string and vice versa
  *  so it can be stored in the database
  */
-class TypeConverter {
+internal class TypeConverter {
 
     @TypeConverter
     fun fromJsonToList(json: String): List<String>? {

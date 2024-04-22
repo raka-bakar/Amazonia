@@ -7,6 +7,6 @@ import com.raka.data.utils.Constants
 
 @TypeConverters(value = [TypeConverter::class])
 @Database(entities = [DBProduct::class], version = Constants.DATABASE_VERSION, exportSchema = false)
-abstract class AmazoniaDatabase : RoomDatabase() {
+internal abstract class AmazoniaDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
 }

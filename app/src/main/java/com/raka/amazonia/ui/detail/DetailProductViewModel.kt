@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.raka.amazonia.model.ProductCompact
 import com.raka.amazonia.usecase.GetProductDetailUseCase
 import com.raka.amazonia.usecase.UpdateFavoriteStatusUseCase
-import com.raka.amazonia.utils.CallResult
+import com.raka.amazonia.utils.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
@@ -21,16 +21,16 @@ class DetailProductViewModel @Inject constructor(
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _productLiveData: MutableLiveData<CallResult<ProductCompact>> = MutableLiveData()
-    val productLiveData: LiveData<CallResult<ProductCompact>> = _productLiveData
+    private val _productLiveData: MutableLiveData<ScreenState<ProductCompact>> = MutableLiveData()
+    val productLiveData: LiveData<ScreenState<ProductCompact>> = _productLiveData
 
     fun getRatingProduct(id: Int) {
         val disposable = getProductDetail.getProductDetail(id)
-            .doOnSubscribe { _productLiveData.postValue(CallResult.loading()) }
+            .doOnSubscribe { _productLiveData.postValue(ScreenState.loading()) }
             .subscribe({ productCompact ->
-                _productLiveData.postValue(CallResult.success(productCompact))
+                _productLiveData.postValue(ScreenState.success(productCompact))
             }, { throwable ->
-                _productLiveData.postValue(CallResult.error(throwable.message))
+                _productLiveData.postValue(ScreenState.error(throwable.message))
                 Timber.e(throwable)
             })
         compositeDisposable.add(disposable)

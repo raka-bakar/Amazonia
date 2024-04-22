@@ -2,7 +2,7 @@ package com.raka.data.model
 
 import com.squareup.moshi.Json
 
-data class ProductResponse(
+internal data class ProductResponse(
 
     @Json(name = "discountPercentage")
     val discountPercentage: Double,

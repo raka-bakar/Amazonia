@@ -21,7 +21,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDataProvider(dataSource: DataSource): DataProvider {
-        return DataProvider(dataSource)
+    fun provideDataProvider(@ApplicationContext context: Context): DataProvider {
+        return DataProvider(context)
     }
 }

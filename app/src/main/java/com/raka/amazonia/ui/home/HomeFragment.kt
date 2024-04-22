@@ -13,7 +13,7 @@ import com.raka.amazonia.R
 import com.raka.amazonia.databinding.FragmentHomeBinding
 import com.raka.amazonia.model.ProductCompact
 import com.raka.amazonia.ui.detail.DetailProductFragment
-import com.raka.amazonia.utils.CallResult
+import com.raka.amazonia.utils.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,18 +41,18 @@ class HomeFragment : Fragment() {
 
         viewModel.productsLiveData.observe(viewLifecycleOwner) { callResult ->
             when (callResult.status) {
-                CallResult.Status.SUCCESS -> {
+                ScreenState.Status.SUCCESS -> {
                     binding.loadingSpinner.visibility = View.GONE
                     hideEmptyView()
                     callResult.data?.let { listProduct -> setupHomeAdapter(listProduct) }
                 }
 
-                CallResult.Status.LOADING -> {
+                ScreenState.Status.LOADING -> {
                     hideEmptyView()
                     binding.loadingSpinner.visibility = View.VISIBLE
                 }
 
-                CallResult.Status.ERROR -> {
+                ScreenState.Status.ERROR -> {
                     showEmptyView()
                     binding.loadingSpinner.visibility = View.GONE
                 }

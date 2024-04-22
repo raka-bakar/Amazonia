@@ -33,6 +33,7 @@ class HomeAdapter(
     private fun onClickItem(item: ProductCompact, position: Int) {
         onFavoriteClick(item)
         notifyItemChanged(position)
+        listProduct[position].isFavorite = !item.isFavorite
     }
 
     inner class HomeHolder(private val binding: ItemProductBinding) :

@@ -70,8 +70,12 @@ class DataSourceImpl @Inject constructor(
     override fun loadInitialData(): Completable {
         // load data from remote server and save to the local database
         return apiService.loadProducts()
-            .flatMapCompletable {
-                val dbList = it.productResponses.map { product -> product.toDBProduct(product) }
+            .flatMapCompletable { apiResponse ->
+                val dbList = apiResponse.productResponses.map { product ->
+                    product.toDBProduct(
+                        product
+                    )
+                }
                 productDao.insertProducts(dbList)
             }
     }

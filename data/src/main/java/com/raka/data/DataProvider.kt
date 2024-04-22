@@ -6,6 +6,7 @@ import javax.inject.Inject
  * This class is the entry point to the module, it exposes the data calls to the app
  */
 class DataProvider @Inject constructor(private val dataSource: DataSource) {
+
     fun loadProducts() = dataSource.loadProductsLocalStorage()
 
     fun loadProduct(id: Int) = dataSource.loadProduct(id)

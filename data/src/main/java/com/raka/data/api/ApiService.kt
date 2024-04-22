@@ -7,7 +7,7 @@ import retrofit2.http.GET
 interface ApiService {
     /**
      * load list of All products
-     * @return Single type pf ApiResponse
+     * @return Single type of ApiResponse
      *
      */
     @GET("products")

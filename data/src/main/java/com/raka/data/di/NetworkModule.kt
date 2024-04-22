@@ -32,7 +32,7 @@ internal class NetworkModule {
                 val reqBuilder = request.newBuilder()
                     .header(
                         "User-Agent:",
-                        "${BuildConfig.APP_NAME}:${BuildConfig.APP_VERSION}"
+                        "${BuildConfig.APP_NAME} : ${BuildConfig.APP_VERSION}"
                     )
                 chain.proceed(reqBuilder.build())
             }

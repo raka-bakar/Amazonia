@@ -17,6 +17,7 @@ import javax.inject.Singleton
 internal class DatabaseModule {
     /**
      * provides room database instance
+     * @param context
      */
     @Singleton
     @Provides
@@ -28,6 +29,10 @@ internal class DatabaseModule {
         ).fallbackToDestructiveMigration().build()
     }
 
+    /**
+     * provides room dao
+     * @param amazoniaDatabase of type AmazoniaDatabase
+     */
     @Provides
     @Singleton
     fun providesProductsDao(amazoniaDatabase: AmazoniaDatabase): ProductDao {

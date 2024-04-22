@@ -18,13 +18,12 @@ class HomeViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val updateFavoriteStatusUseCase: UpdateFavoriteStatusUseCase,
     private val getInitialDataUseCase: GetInitialDataUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
     private val _productsLiveData:
-            MutableLiveData<CallResult<List<ProductCompact>>> = MutableLiveData()
+        MutableLiveData<CallResult<List<ProductCompact>>> = MutableLiveData()
     val productsLiveData: LiveData<CallResult<List<ProductCompact>>> = _productsLiveData
 
     fun getInitialData() {
@@ -59,9 +58,9 @@ class HomeViewModel @Inject constructor(
     fun onFavoriteClicked(product: ProductCompact) {
         val disposable = updateFavoriteStatusUseCase
             .updateFavoriteStatus(id = product.id, status = product.isFavorite)
-            .subscribe {
-                getAllProducts()
-            }
+            .subscribe({}, { onError ->
+                Timber.e(onError)
+            })
         compositeDisposable.add(disposable)
     }
 

@@ -3,7 +3,6 @@ package com.raka.amazonia.di
 import android.content.Context
 import com.raka.amazonia.AmazoniaApp
 import com.raka.data.DataProvider
-import com.raka.data.DataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

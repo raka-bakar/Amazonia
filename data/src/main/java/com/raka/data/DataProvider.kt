@@ -12,6 +12,7 @@ class DataProvider @Inject constructor(context: Context) {
     private val dataSourceHelper =
         EntryPointAccessors
             .fromApplication(context = context, entryPoint = DataSourceHelper::class.java)
+
     fun loadProducts() = dataSourceHelper.getDataSource().loadProductsLocalStorage()
 
     fun loadProduct(id: Int) = dataSourceHelper.getDataSource().loadProduct(id)

@@ -1,6 +1,5 @@
 package com.raka.data.di
 
-import com.raka.data.BuildConfig
 import com.raka.data.api.ApiService
 import com.raka.data.utils.Constants
 import com.squareup.moshi.Moshi
@@ -9,7 +8,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -26,17 +24,7 @@ internal class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttp(): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor(
-            Interceptor { chain ->
-                val request = chain.request()
-                val reqBuilder = request.newBuilder()
-                    .header(
-                        "User-Agent:",
-                        "${BuildConfig.APP_NAME} : ${BuildConfig.APP_VERSION}"
-                    )
-                chain.proceed(reqBuilder.build())
-            }
-        ).build()
+        return OkHttpClient.Builder().build()
     }
 
     /**

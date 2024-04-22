@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
-interface DataSource {
+internal interface DataSource {
 
     /**
      * get a detail information of a product,

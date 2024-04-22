@@ -23,7 +23,7 @@ class GetProductDetailUseCaseImpl @Inject constructor(
 ) :
     GetProductDetailUseCase {
     override fun getProductDetail(id: Int): Single<ProductCompact> {
-        return repository.getProductsByCategory(id)
+        return repository.getProductsByCategory(id = id)
             .flatMap { listProductCompact ->
                 getRankProduct(id, listProductCompact)
             }
@@ -31,7 +31,7 @@ class GetProductDetailUseCaseImpl @Inject constructor(
 
     private fun getRankProduct(id: Int, list: List<ProductCompact>): Single<ProductCompact> {
         return Single.create { emitter ->
-            val product = ratingManager.getProductRank(id, list)
+            val product = ratingManager.getProductRank(id = id, listProductCompact =  list)
             if (product.id != Constants.PRODUCT_NOT_FOUND_ID) {
                 emitter.onSuccess(product)
             } else {

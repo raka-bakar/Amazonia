@@ -1,4 +1,4 @@
-package com.raka.amazonia.ui
+package com.raka.amazonia.ui.root
 
 import androidx.lifecycle.ViewModel
 import com.raka.amazonia.usecase.GetInitialDataUseCase

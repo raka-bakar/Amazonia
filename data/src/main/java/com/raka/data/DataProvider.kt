@@ -15,7 +15,7 @@ class DataProvider @Inject constructor(context: Context) {
 
     fun loadProducts() = dataSourceHelper.getDataSource().loadProductsLocalStorage()
 
-    fun loadProduct(id: Int) = dataSourceHelper.getDataSource().loadProduct(id)
+    fun loadProduct(id: Int) = dataSourceHelper.getDataSource().loadProduct(id = id)
 
     fun updateFavoriteStatus(id: Int, status: Boolean) =
         dataSourceHelper.getDataSource().updateFavoriteStatus(id = id, status = status)

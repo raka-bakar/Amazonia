@@ -27,7 +27,7 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: HomeHolder, position: Int) {
-        holder.bind(listProduct[position], position)
+        holder.bind(item = listProduct[position], position =  position)
     }
 
     private fun onClickItem(item: ProductCompact, position: Int) {
@@ -55,7 +55,7 @@ class HomeAdapter(
                 }
                 ivFavorite.setOnClickListener { onClickItem(item, position) }
             }
-            setFavoriteImage(item.isFavorite)
+            setFavoriteImage(status = item.isFavorite)
         }
 
         private fun setFavoriteImage(status: Boolean) {

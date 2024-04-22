@@ -55,12 +55,12 @@ internal class DataSourceImpl @Inject constructor(
 
     override fun loadProductsByCategory(id: Int): Single<List<DBProduct>> {
         return productDao.loadProduct(id).flatMap {
-            productDao.loadProductsByCategory(it.category)
+            productDao.loadProductsByCategory(category = it.category)
         }
     }
 
     override fun loadProduct(id: Int): Single<DBProduct> {
-        return productDao.loadProduct(id)
+        return productDao.loadProduct(id = id)
     }
 
     override fun updateFavoriteStatus(id: Int, status: Boolean): Completable {
@@ -76,7 +76,7 @@ internal class DataSourceImpl @Inject constructor(
                         product
                     )
                 }
-                productDao.insertProducts(dbList)
+                productDao.insertProducts(list = dbList)
             }
     }
 }

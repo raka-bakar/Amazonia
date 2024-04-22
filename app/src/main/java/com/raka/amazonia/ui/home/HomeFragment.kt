@@ -44,7 +44,8 @@ class HomeFragment : Fragment() {
                 ScreenState.Status.SUCCESS -> {
                     binding.loadingSpinner.visibility = View.GONE
                     hideEmptyView()
-                    callResult.data?.let { listProduct -> setupHomeAdapter(listProduct) }
+                    callResult.data?.let { listProduct -> setupHomeAdapter(
+                        listProduct = listProduct) }
                 }
 
                 ScreenState.Status.LOADING -> {

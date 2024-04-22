@@ -1,4 +1,4 @@
-package com.raka.amazonia.ui
+package com.raka.amazonia.ui.root
 
 import android.os.Bundle
 import androidx.activity.viewModels

@@ -6,6 +6,7 @@ import com.raka.data.database.ProductDao
 import com.raka.data.utils.toDBProduct
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import timber.log.Timber
 import javax.inject.Inject
 
 internal interface DataSource {
@@ -77,6 +78,8 @@ internal class DataSourceImpl @Inject constructor(
                     )
                 }
                 productDao.insertProducts(list = dbList)
+            }.doOnError { throwable ->
+                Timber.e(throwable)
             }
     }
 }

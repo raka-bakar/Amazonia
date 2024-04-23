@@ -1,6 +1,7 @@
 package com.raka.data.di
 
 import com.raka.data.api.ApiService
+import com.raka.data.network.NetworkInterceptor
 import com.raka.data.utils.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -19,12 +20,22 @@ import javax.inject.Singleton
 internal class NetworkModule {
 
     /**
-     * provides okHttp instance
+     * provides NetworkInterceptor Instance
      */
     @Provides
     @Singleton
-    fun provideOkHttp(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+    fun provideNetworkInterceptor() = NetworkInterceptor()
+
+    /**
+     * provides okHttp instance
+     * @param networkMonitor of type NetworkMonitor
+     */
+    @Provides
+    @Singleton
+    fun provideOkHttp(networkInterceptor: NetworkInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(networkInterceptor)
+            .build()
     }
 
     /**
@@ -38,6 +49,7 @@ internal class NetworkModule {
 
     /**
      * provides retrofit Api for network calls
+     * @param retrofit of type Retrofit
      */
     @Provides
     @Singleton
@@ -47,6 +59,8 @@ internal class NetworkModule {
 
     /**
      * provides retrofit instance
+     * @param httpClient of type OkHttpClient
+     * @param moshi of type Moshi
      */
     @Provides
     @Singleton

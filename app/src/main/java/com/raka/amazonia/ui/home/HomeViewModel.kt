@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
             .doOnSubscribe { _productsLiveData.postValue(ScreenState.loading()) }
             .subscribe({ listProducts ->
                 if (listProducts.isEmpty()) {
-                    _productsLiveData.postValue(ScreenState.error("Data is empty"))
+                    _productsLiveData.postValue(ScreenState.error())
                 } else {
                     _productsLiveData.postValue(ScreenState.success(listProducts))
                 }

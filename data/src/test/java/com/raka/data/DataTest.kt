@@ -4,7 +4,7 @@ import com.raka.data.database.DBProduct
 import com.raka.data.model.ApiResponse
 import com.raka.data.model.ProductResponse
 
-object DataTest {
+internal object DataTest {
     val apiResponse = ApiResponse(
         total = 3,
         limit = 3,

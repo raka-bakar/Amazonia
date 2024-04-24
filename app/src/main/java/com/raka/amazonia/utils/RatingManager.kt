@@ -1,6 +1,6 @@
 package com.raka.amazonia.utils
 
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 import com.raka.amazonia.utils.Constants.PRODUCT_NOT_FOUND_ID
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ interface RatingManager {
 
 class RatingManagerImpl @Inject constructor() : RatingManager {
     override fun getProductRank(id: Int, listProductCompact: List<ProductCompact>):
-        ProductCompact {
+            ProductCompact {
         // if the list empty return product not found
         if (listProductCompact.isEmpty()) {
             return ProductCompact(id = PRODUCT_NOT_FOUND_ID)

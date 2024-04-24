@@ -1,6 +1,6 @@
 package com.raka.amazonia
 
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 import com.raka.amazonia.utils.Constants
 import com.raka.amazonia.utils.RatingManager
 import com.raka.amazonia.utils.RatingManagerImpl

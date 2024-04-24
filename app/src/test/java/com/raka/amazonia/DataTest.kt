@@ -1,6 +1,6 @@
 package com.raka.amazonia
 
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 import com.raka.data.database.DBProduct
 
 object DataTest {

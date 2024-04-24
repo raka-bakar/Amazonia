@@ -1,6 +1,6 @@
 package com.raka.amazonia.utils
 
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 import com.raka.data.database.DBProduct
 
 fun DBProduct.toProductCompact(dbProduct: DBProduct): ProductCompact {

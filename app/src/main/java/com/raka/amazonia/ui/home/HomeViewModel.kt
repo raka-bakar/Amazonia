@@ -3,10 +3,10 @@ package com.raka.amazonia.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.raka.amazonia.model.ProductCompact
-import com.raka.amazonia.usecase.GetAllProductsUseCase
-import com.raka.amazonia.usecase.GetInitialDataUseCase
-import com.raka.amazonia.usecase.UpdateFavoriteStatusUseCase
+import com.raka.amazonia.data.model.ProductCompact
+import com.raka.amazonia.domain.usecase.GetAllProductsUseCase
+import com.raka.amazonia.domain.usecase.GetInitialDataUseCase
+import com.raka.amazonia.domain.usecase.UpdateFavoriteStatusUseCase
 import com.raka.amazonia.utils.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable

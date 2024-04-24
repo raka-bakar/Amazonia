@@ -1,6 +1,6 @@
-package com.raka.amazonia.repository
+package com.raka.amazonia.data.repository
 
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 import com.raka.amazonia.utils.toProductCompact
 import com.raka.data.DataProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

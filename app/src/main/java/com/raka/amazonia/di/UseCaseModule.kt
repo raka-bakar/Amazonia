@@ -1,15 +1,15 @@
 package com.raka.amazonia.di
 
-import com.raka.amazonia.usecase.GetAllProductsUseCase
-import com.raka.amazonia.usecase.GetAllProductsUsecaseImpl
-import com.raka.amazonia.usecase.GetInitialDataUseCase
-import com.raka.amazonia.usecase.GetInitialDataUseCaseImpl
-import com.raka.amazonia.usecase.GetProductDetailUseCase
-import com.raka.amazonia.usecase.GetProductDetailUseCaseImpl
-import com.raka.amazonia.usecase.GetProductUseCase
-import com.raka.amazonia.usecase.GetProductUseCaseImpl
-import com.raka.amazonia.usecase.UpdateFavoriteStatusUseCase
-import com.raka.amazonia.usecase.UpdateFavoriteStatusUseCaseImpl
+import com.raka.amazonia.domain.usecase.GetAllProductsUseCase
+import com.raka.amazonia.domain.usecase.GetAllProductsUsecaseImpl
+import com.raka.amazonia.domain.usecase.GetInitialDataUseCase
+import com.raka.amazonia.domain.usecase.GetInitialDataUseCaseImpl
+import com.raka.amazonia.domain.usecase.GetProductDetailUseCase
+import com.raka.amazonia.domain.usecase.GetProductDetailUseCaseImpl
+import com.raka.amazonia.domain.usecase.GetProductUseCase
+import com.raka.amazonia.domain.usecase.GetProductUseCaseImpl
+import com.raka.amazonia.domain.usecase.UpdateFavoriteStatusUseCase
+import com.raka.amazonia.domain.usecase.UpdateFavoriteStatusUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

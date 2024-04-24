@@ -1,8 +1,8 @@
 package com.raka.amazonia
 
-import com.raka.amazonia.model.ProductCompact
-import com.raka.amazonia.repository.ProductRepository
-import com.raka.amazonia.repository.ProductRepositoryImpl
+import com.raka.amazonia.data.model.ProductCompact
+import com.raka.amazonia.data.repository.ProductRepository
+import com.raka.amazonia.data.repository.ProductRepositoryImpl
 import com.raka.data.DataProvider
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Completable

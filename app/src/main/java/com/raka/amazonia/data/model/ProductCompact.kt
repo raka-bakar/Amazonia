@@ -1,4 +1,4 @@
-package com.raka.amazonia.model
+package com.raka.amazonia.data.model
 
 data class ProductCompact(
     val id: Int,

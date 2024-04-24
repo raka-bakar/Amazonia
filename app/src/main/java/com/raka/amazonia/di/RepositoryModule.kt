@@ -1,7 +1,7 @@
 package com.raka.amazonia.di
 
-import com.raka.amazonia.repository.ProductRepository
-import com.raka.amazonia.repository.ProductRepositoryImpl
+import com.raka.amazonia.data.repository.ProductRepository
+import com.raka.amazonia.data.repository.ProductRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

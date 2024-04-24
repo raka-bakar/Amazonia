@@ -1,9 +1,9 @@
 package com.raka.amazonia
 
-import com.raka.amazonia.model.ProductCompact
-import com.raka.amazonia.repository.ProductRepository
-import com.raka.amazonia.usecase.GetProductDetailUseCase
-import com.raka.amazonia.usecase.GetProductDetailUseCaseImpl
+import com.raka.amazonia.data.model.ProductCompact
+import com.raka.amazonia.data.repository.ProductRepository
+import com.raka.amazonia.domain.usecase.GetProductDetailUseCase
+import com.raka.amazonia.domain.usecase.GetProductDetailUseCaseImpl
 import com.raka.amazonia.utils.RatingManager
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single

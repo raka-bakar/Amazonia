@@ -7,7 +7,7 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.raka.amazonia.R
 import com.raka.amazonia.databinding.ItemProductBinding
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 
 class HomeAdapter(
     data: List<ProductCompact>,

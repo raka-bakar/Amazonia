@@ -1,7 +1,7 @@
 package com.raka.amazonia.ui.root
 
 import androidx.lifecycle.ViewModel
-import com.raka.amazonia.usecase.GetInitialDataUseCase
+import com.raka.amazonia.domain.usecase.GetInitialDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow

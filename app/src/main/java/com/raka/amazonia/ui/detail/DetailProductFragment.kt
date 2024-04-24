@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.raka.amazonia.R
 import com.raka.amazonia.databinding.FragmentDetailProductBinding
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 import com.raka.amazonia.utils.ScreenState
 
 class DetailProductFragment : Fragment() {
@@ -95,7 +95,6 @@ class DetailProductFragment : Fragment() {
         binding.apply {
             tvEmptyData.visibility = View.VISIBLE
             btnReload.visibility = View.VISIBLE
-            ivEmptyData.visibility = View.VISIBLE
         }
     }
 
@@ -103,7 +102,6 @@ class DetailProductFragment : Fragment() {
         binding.apply {
             tvEmptyData.visibility = View.GONE
             btnReload.visibility = View.GONE
-            ivEmptyData.visibility = View.GONE
         }
     }
 

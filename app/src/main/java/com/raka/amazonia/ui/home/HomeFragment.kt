@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raka.amazonia.R
 import com.raka.amazonia.databinding.FragmentHomeBinding
-import com.raka.amazonia.model.ProductCompact
+import com.raka.amazonia.data.model.ProductCompact
 import com.raka.amazonia.ui.detail.DetailProductFragment
 import com.raka.amazonia.utils.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,12 +39,12 @@ class HomeFragment : Fragment() {
     private fun setupObserver() {
         viewModel.getAllProducts()
 
-        viewModel.productsLiveData.observe(viewLifecycleOwner) { callResult ->
-            when (callResult.status) {
+        viewModel.productsLiveData.observe(viewLifecycleOwner) { state ->
+            when (state.status) {
                 ScreenState.Status.SUCCESS -> {
                     binding.loadingSpinner.visibility = View.GONE
                     hideEmptyView()
-                    callResult.data?.let { listProduct ->
+                    state.data?.let { listProduct ->
                         setupHomeAdapter(
                             listProduct = listProduct
                         )
@@ -94,7 +94,6 @@ class HomeFragment : Fragment() {
         binding.apply {
             tvEmptyData.visibility = View.VISIBLE
             btnReload.visibility = View.VISIBLE
-            ivEmptyData.visibility = View.VISIBLE
         }
     }
 
@@ -102,7 +101,6 @@ class HomeFragment : Fragment() {
         binding.apply {
             tvEmptyData.visibility = View.GONE
             btnReload.visibility = View.GONE
-            ivEmptyData.visibility = View.GONE
         }
     }
 

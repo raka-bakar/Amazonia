@@ -96,17 +96,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_empty_data"
-            android:layout_width="@dimen/warning_logo_size"
-            android:layout_height="@dimen/warning_logo_size"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/ic_warning"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/tv_empty_data"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/tv_empty_data"
             android:layout_width="wrap_content"

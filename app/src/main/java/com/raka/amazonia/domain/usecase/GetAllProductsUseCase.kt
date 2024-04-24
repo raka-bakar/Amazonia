@@ -1,7 +1,7 @@
-package com.raka.amazonia.usecase
+package com.raka.amazonia.domain.usecase
 
-import com.raka.amazonia.model.ProductCompact
-import com.raka.amazonia.repository.ProductRepository
+import com.raka.amazonia.data.model.ProductCompact
+import com.raka.amazonia.data.repository.ProductRepository
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

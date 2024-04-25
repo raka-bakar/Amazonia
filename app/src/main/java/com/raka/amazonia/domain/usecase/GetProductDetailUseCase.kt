@@ -2,6 +2,8 @@ package com.raka.amazonia.domain.usecase
 
 import com.raka.amazonia.data.model.ProductCompact
 import com.raka.amazonia.data.repository.ProductRepository
+import com.raka.amazonia.utils.Constants
+import com.raka.amazonia.utils.RatingManager
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -16,10 +18,25 @@ interface GetProductDetailUseCase {
 }
 
 class GetProductDetailUseCaseImpl @Inject constructor(
-    private val repository: ProductRepository
+    private val repository: ProductRepository,
+    private val ratingManager: RatingManager
 ) :
     GetProductDetailUseCase {
     override fun getProductDetail(id: Int): Single<ProductCompact> {
         return repository.getProductsByCategory(id = id)
+            .flatMap { listProductCompact ->
+                getRankProduct(id, listProductCompact)
+            }
+    }
+
+    private fun getRankProduct(id: Int, list: List<ProductCompact>): Single<ProductCompact> {
+        return Single.create { emitter ->
+            val product = ratingManager.getProductRank(id = id, listProductCompact =  list)
+            if (product.id != Constants.PRODUCT_NOT_FOUND_ID) {
+                emitter.onSuccess(product)
+            } else {
+                emitter.onError(Throwable("Data not found"))
+            }
+        }
     }
 }

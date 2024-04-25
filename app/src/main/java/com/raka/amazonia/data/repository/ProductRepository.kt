@@ -46,12 +46,10 @@ interface ProductRepository {
      * get a list of products by category
      * @return Single of List<ProductCompact>
      */
-    fun getProductsByCategory(id: Int): Single<ProductCompact>
+    fun getProductsByCategory(id: Int): Single<List<ProductCompact>>
 }
 
-class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataProvider,
-                                                private val ratingManager: RatingManager
-) :
+class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataProvider) :
     ProductRepository {
     override fun getProduct(id: Int): Single<ProductCompact> {
         return dataProvider.loadProduct(
@@ -80,16 +78,10 @@ class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataPr
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getProductsByCategory(id: Int): Single<ProductCompact> {
+    override fun getProductsByCategory(id: Int): Single<List<ProductCompact>> {
         return dataProvider.loadProductsByCategory(id)
-            .map { listProductCompact ->
-                getRankProduct(id, listProductCompact.map {
-                        dbProduct->dbProduct.toProductCompact(dbProduct) }) }
+            .map { list -> list.map { dbProduct -> dbProduct.toProductCompact(dbProduct) } }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    private fun getRankProduct(id: Int, list: List<ProductCompact>): ProductCompact {
-        return ratingManager.getProductRank(id = id, listProductCompact = list)
     }
 }

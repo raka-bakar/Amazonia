@@ -1,6 +1,7 @@
 package com.raka.amazonia.data.repository
 
 import com.raka.amazonia.data.model.ProductCompact
+import com.raka.amazonia.utils.RatingManager
 import com.raka.amazonia.utils.toProductCompact
 import com.raka.data.DataProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -45,10 +46,12 @@ interface ProductRepository {
      * get a list of products by category
      * @return Single of List<ProductCompact>
      */
-    fun getProductsByCategory(id: Int): Single<List<ProductCompact>>
+    fun getProductsByCategory(id: Int): Single<ProductCompact>
 }
 
-class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataProvider) :
+class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataProvider,
+                                                private val ratingManager: RatingManager
+) :
     ProductRepository {
     override fun getProduct(id: Int): Single<ProductCompact> {
         return dataProvider.loadProduct(
@@ -77,10 +80,16 @@ class ProductRepositoryImpl @Inject constructor(private val dataProvider: DataPr
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getProductsByCategory(id: Int): Single<List<ProductCompact>> {
+    override fun getProductsByCategory(id: Int): Single<ProductCompact> {
         return dataProvider.loadProductsByCategory(id)
-            .map { list -> list.map { dbProduct -> dbProduct.toProductCompact(dbProduct) } }
+            .map { listProductCompact ->
+                getRankProduct(id, listProductCompact.map {
+                        dbProduct->dbProduct.toProductCompact(dbProduct) }) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    private fun getRankProduct(id: Int, list: List<ProductCompact>): ProductCompact {
+        return ratingManager.getProductRank(id = id, listProductCompact = list)
     }
 }

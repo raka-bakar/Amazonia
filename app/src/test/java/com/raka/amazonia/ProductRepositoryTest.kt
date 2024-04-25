@@ -3,6 +3,7 @@ package com.raka.amazonia
 import com.raka.amazonia.data.model.ProductCompact
 import com.raka.amazonia.data.repository.ProductRepository
 import com.raka.amazonia.data.repository.ProductRepositoryImpl
+import com.raka.amazonia.utils.RatingManager
 import com.raka.data.DataProvider
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Completable
@@ -18,12 +19,13 @@ import org.mockito.kotlin.verify
 class ProductRepositoryTest {
 
     private val dataProvider = Mockito.mock(DataProvider::class.java)
+    private val ratingManager = Mockito.mock(RatingManager::class.java)
 
     private lateinit var sut: ProductRepository
 
     @Before
     fun setup() {
-        sut = ProductRepositoryImpl(dataProvider = dataProvider)
+        sut = ProductRepositoryImpl(dataProvider = dataProvider, ratingManager = ratingManager)
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
     }
@@ -147,8 +149,11 @@ class ProductRepositoryTest {
                 DataTest.listDBProduct
             )
         )
+        Mockito.`when`(ratingManager.getProductRank(2, DataTest.listProductCompact)).thenReturn(
+            DataTest.expectedProduct
+        )
         val observer = sut.getProductsByCategory(1)
-        val testObserver = TestObserver.create<List<ProductCompact>>()
+        val testObserver = TestObserver.create<ProductCompact>()
         observer.subscribe(testObserver)
 
         verify(dataProvider).loadProductsByCategory(1)
@@ -161,11 +166,28 @@ class ProductRepositoryTest {
                 DataTest.listDBProduct
             )
         )
+        Mockito.`when`(ratingManager.getProductRank(1, DataTest.listProductCompact)).thenReturn(
+            DataTest.expectedProduct
+        )
         val observer = sut.getProductsByCategory(1)
-        val testObserver = TestObserver.create<List<ProductCompact>>()
+        val testObserver = TestObserver.create<ProductCompact>()
         observer.subscribe(testObserver)
 
         testObserver.assertComplete()
-        testObserver.assertResult(DataTest.listProductCompact)
+        testObserver.assertResult(DataTest.expectedProduct)
+    }
+
+    @Test
+    fun `verify using the correct parameters when getting a product's rank`() {
+        Mockito.`when`(dataProvider.loadProductsByCategory(2)).thenReturn(
+            Single.just(DataTest.listDBProduct)
+        )
+
+        val observer = sut.getProductsByCategory(2)
+        val testObserver = TestObserver.create<ProductCompact>()
+
+        observer.subscribe(testObserver)
+
+        verify(ratingManager).getProductRank(2, DataTest.listProductCompact)
     }
 }

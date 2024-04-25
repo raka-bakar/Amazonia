@@ -6,8 +6,6 @@ import com.raka.amazonia.domain.usecase.GetInitialDataUseCase
 import com.raka.amazonia.domain.usecase.GetInitialDataUseCaseImpl
 import com.raka.amazonia.domain.usecase.GetProductDetailUseCase
 import com.raka.amazonia.domain.usecase.GetProductDetailUseCaseImpl
-import com.raka.amazonia.domain.usecase.GetProductUseCase
-import com.raka.amazonia.domain.usecase.GetProductUseCaseImpl
 import com.raka.amazonia.domain.usecase.UpdateFavoriteStatusUseCase
 import com.raka.amazonia.domain.usecase.UpdateFavoriteStatusUseCaseImpl
 import dagger.Binds
@@ -22,9 +20,6 @@ interface UseCaseModule {
     fun bindGetAllProductsUseCase(
         getAllProductsUsecaseImpl: GetAllProductsUsecaseImpl
     ): GetAllProductsUseCase
-
-    @Binds
-    fun bindGetProductUseCase(getProductUseCaseImpl: GetProductUseCaseImpl): GetProductUseCase
 
     @Binds
     fun bindGetInitialDataUseCase(
